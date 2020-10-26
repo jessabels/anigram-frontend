@@ -1,0 +1,8 @@
+* {
+  font-family: "Gorditas", cursive;
+}
+
+body {
+  background-image: url("./images/animal-crossing-bg.jpg");
+  background-size: cover;
+}

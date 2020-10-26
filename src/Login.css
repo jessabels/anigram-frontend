@@ -1,0 +1,45 @@
+:root {
+  --primary-color: #9dffb0;
+  --secondary-color: #81f1f7;
+  --tertiary-color: #fff563;
+}
+
+.form-container {
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  padding: 30px 38px;
+  width: 100%;
+  max-width: 350px;
+  margin: 30px;
+  border: 1px solid #dddd;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input {
+  line-height: 1.8em;
+  border: 0;
+  border-bottom: 2px solid #ccc;
+  box-sizing: border-box;
+  display: block;
+  margin-bottom: 2em;
+  outline: 0;
+  padding: 0.25em 0.5em;
+  width: 100%;
+}
+
+input:focus {
+  border-bottom-color: var(--primary-color);
+}
+
+.form-button {
+  background-color: var(--primary-color);
+}
+
+form a {
+  display: block;
+  margin-top: 20px;
+}
