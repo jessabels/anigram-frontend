@@ -1,10 +1,11 @@
 import React from "react";
-import Login from "./Login";
+// import Login from "./Login";
 
 const Homepage = () => {
   return (
     <>
-      <Login />
+      {/* <Login /> */}
+      Welcome to Anigram!
     </>
   );
 };
