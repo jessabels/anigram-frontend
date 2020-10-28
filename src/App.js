@@ -1,9 +1,12 @@
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Homepage from "./Homepage";
 import Navbar from "./Navbar";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
+import { loadToken } from "./store/authentication";
+import { getUserInfo } from "./store/user";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -20,8 +23,19 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 function App() {
   const token = useSelector((state) => state.authentication.token);
-
+  const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
   const needLogin = !token;
+
+  useEffect(() => {
+    setLoaded(true);
+    dispatch(loadToken());
+    dispatch(getUserInfo(token));
+  }, [token]);
+
+  if (!loaded) {
+    return null;
+  }
   return (
     <>
       <Router>

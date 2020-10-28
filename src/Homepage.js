@@ -1,11 +1,10 @@
 import React from "react";
-// import Login from "./Login";
-
+import { useSelector } from "react-redux";
 const Homepage = () => {
+  const user = useSelector((state) => state.userDetails.user.username);
   return (
     <>
-      {/* <Login /> */}
-      Welcome to Anigram!
+      <h1>{`Welcome to Anigram, ${user}!`}</h1>
     </>
   );
 };

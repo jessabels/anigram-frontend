@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 
 import "./Login.css";
-import { Redirect } from "react-router-dom";
 import { login } from "./store/authentication";
+// import { getUserInfo } from "./store/user";
 
 const Login = () => {
   const token = useSelector((state) => state.authentication.token);
@@ -16,6 +16,7 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(login(email, password));
+    // dispatch(getUserInfo(token));
   };
   const updateEmail = (event) => {
     setEmail(event.target.value);
@@ -25,10 +26,10 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  console.log(token);
   if (token) {
     return <Redirect to="/" />;
   }
+
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit} className="loginForm">

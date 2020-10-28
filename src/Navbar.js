@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -21,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = () => {
+  const avatar = useSelector((state) => state.userDetails.user.avatar);
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -31,6 +34,7 @@ const Navbar = () => {
             className={classes.icon}
           ></FontAwesomeIcon>
           <Button>Anigram</Button>
+          <img alt="user avatar" src={avatar}></img>
         </Toolbar>
       </AppBar>
     </div>
