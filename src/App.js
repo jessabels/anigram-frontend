@@ -30,7 +30,6 @@ function App() {
     setLoaded(true);
     dispatch(loadToken());
     dispatch(loadUserInfo());
-    // dispatch(getUserInfo(token));
   }, [token]);
 
   if (!loaded) {

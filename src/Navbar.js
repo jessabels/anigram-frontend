@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = () => {
-  // const avatar = useSelector((state) => state.userDetails.user.avatar);
+  const avatar = useSelector((state) => state.authentication.avatar);
 
   const classes = useStyles();
   return (
@@ -34,7 +34,7 @@ const Navbar = () => {
             className={classes.icon}
           ></FontAwesomeIcon>
           <Button>Anigram</Button>
-          {/* <img alt="user avatar" src={avatar}></img> */}
+          <img alt="user avatar" src={avatar}></img>
         </Toolbar>
       </AppBar>
     </div>
