@@ -1,27 +1,85 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Grid from "@material-ui/core/Grid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLeaf } from "@fortawesome/free-solid-svg-icons";
+
 import { getAllPosts } from "./store/posts";
+import "./Posts.css";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
+
+  card: {
+    padding: theme.spacing(2),
+  },
+}));
 
 const Posts = () => {
   const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts.posts);
 
   useEffect(() => {
     dispatch(getAllPosts());
-  });
+  }, [posts, dispatch]);
 
-  const posts = useSelector((state) => state.posts.posts);
+  const classes = useStyles();
+
   if (!posts) {
-    return null;
+    return <CircularProgress />;
   }
   return (
-    <div>
-      {posts.map((post) => (
-        <>
-          <img alt={post.caption} key={post.id} src={post.imageUrl}></img>
-          <span>{post.caption}</span>
-        </>
-      ))}
-    </div>
+    <>
+      <Grid container>
+        {posts.map((post) => (
+          <Grid item xs={6} sm={3}>
+            <Card className={classes.root}>
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    <img alt="user avatar" src={post.userAvatar} />
+                  </Avatar>
+                }
+                subheader={post.createdAt}
+              />
+              <CardMedia className={classes.media} image={post.imageUrl} />
+              <div className="photo-text-container">
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {post.caption}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <FontAwesomeIcon
+                    icon={faLeaf}
+                    style={{ color: "#4aa532" }}
+                  ></FontAwesomeIcon>
+                </CardActions>
+              </div>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 };
 

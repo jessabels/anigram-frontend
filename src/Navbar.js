@@ -6,18 +6,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeaf } from "@fortawesome/free-solid-svg-icons";
-import "./Navbar.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   navbar: {
-    backgroundColor: "#9dffb0",
-  },
-
-  icon: {
-    color: "#4aa532",
+    backgroundColor: "#48c0b5",
   },
 }));
 
@@ -31,7 +26,7 @@ const Navbar = () => {
         <Toolbar>
           <FontAwesomeIcon
             icon={faLeaf}
-            className={classes.icon}
+            style={{ color: "#4aa532" }}
           ></FontAwesomeIcon>
           <Button>Anigram</Button>
           <img alt="user avatar" src={avatar}></img>
