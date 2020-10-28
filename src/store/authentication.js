@@ -1,9 +1,15 @@
 const TOKEN_KEY = "anigram/authentication/token";
 const SET_TOKEN = "anigram/authentication/SET_TOKEN";
 const REMOVE_TOKEN = "anigram/authentication/REMOVE_TOKEN";
-
+const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
+export const setCurrentUser = (userId, username, avatar) => ({
+  type: SET_CURRENT_USER,
+  userId,
+  username,
+  avatar,
+});
 
 export const loadToken = () => async (dispatch) => {
   const token = window.localStorage.getItem(TOKEN_KEY);
@@ -20,10 +26,23 @@ export const login = (email, password) => async (dispatch) => {
   });
 
   if (response.ok) {
-    const { token } = await response.json();
+    const data = await response.json();
+    const { token, userId, username, avatar } = data;
     window.localStorage.setItem(TOKEN_KEY, token);
+    window.localStorage.setItem("userId", userId);
+    // const { token } = await response.json();
+    // window.localStorage.setItem(TOKEN_KEY, token);
     dispatch(setToken(token));
+    dispatch(setCurrentUser(userId, username, avatar));
   }
+};
+
+export const loadUserInfo = () => async (dispatch) => {
+  const userId = window.localStorage.getItem("userId");
+  const response = await fetch(`http://localhost:8080/api/users/${userId}`);
+  const data = await response.json();
+  const { username, avatar } = data;
+  dispatch(setCurrentUser(userId, username, avatar));
 };
 
 export const register = (username, password, email) => async (dispatch) => {
@@ -56,6 +75,14 @@ export default function reducer(state = {}, action) {
       return {
         ...state,
         token: action.token,
+      };
+    }
+    case SET_CURRENT_USER: {
+      return {
+        ...state,
+        userId: action.userId,
+        username: action.username,
+        avatar: action.avatar,
       };
     }
 

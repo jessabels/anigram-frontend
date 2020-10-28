@@ -5,8 +5,7 @@ import Navbar from "./Navbar";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
-import { loadToken } from "./store/authentication";
-import { getUserInfo } from "./store/user";
+import { loadToken, loadUserInfo } from "./store/authentication";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -30,7 +29,8 @@ function App() {
   useEffect(() => {
     setLoaded(true);
     dispatch(loadToken());
-    dispatch(getUserInfo(token));
+    dispatch(loadUserInfo());
+    // dispatch(getUserInfo(token));
   }, [token]);
 
   if (!loaded) {
