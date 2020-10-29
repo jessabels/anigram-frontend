@@ -4,11 +4,12 @@ const REMOVE_TOKEN = "anigram/authentication/REMOVE_TOKEN";
 const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
-export const setCurrentUser = (userId, username, avatar) => ({
+export const setCurrentUser = (userId, username, avatar, likes) => ({
   type: SET_CURRENT_USER,
   userId,
   username,
   avatar,
+  likes,
 });
 
 export const loadToken = () => async (dispatch) => {
@@ -80,7 +81,7 @@ export default function reducer(state = {}, action) {
         userId: action.userId,
         username: action.username,
         avatar: action.avatar,
-        like: action.like,
+        likes: action.likes,
       };
     }
 

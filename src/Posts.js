@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
     margin: "30px 15px",
+    backgroundColor: "#9cd8dc8f",
   },
   media: {
     height: 0,
@@ -32,14 +33,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Posts = () => {
-  // const [like, setLike] = useState(false);
-  const likes = [1, 3];
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
-
+  const likes = useSelector((state) => state.authentication.likes);
   useEffect(() => {
     dispatch(getAllPosts());
-  }, [posts, dispatch]);
+  }, [dispatch]);
 
   const classes = useStyles();
 
@@ -49,11 +48,6 @@ const Posts = () => {
 
   const handleLike = (postId) => {
     console.log(postId);
-    // if (!like) {
-    //   setLike(true);
-    // } else {
-    //   setLike(false);
-    // }
   };
 
   return (
@@ -84,7 +78,7 @@ const Posts = () => {
                     onClick={() => handleLike(post.postId)}
                     icon={faLeaf}
                     style={
-                      likes.includes(post.postId)
+                      likes && likes.includes(post.postId)
                         ? { color: "rgb(74, 165, 50)", cursor: "pointer" }
                         : { color: "rgb(74 165 50 / 41%)", cursor: "pointer" }
                     }

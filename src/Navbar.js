@@ -14,7 +14,7 @@ import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
-    backgroundColor: "#48c0b5",
+    backgroundColor: "#a3daac",
     display: "flex",
     justifyContent: "space-between",
   },
