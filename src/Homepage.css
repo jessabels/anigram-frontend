@@ -1,4 +1,5 @@
 .fab-container {
-  display: flex;
-  justify-content: flex-end;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
 }

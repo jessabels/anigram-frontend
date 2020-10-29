@@ -22,6 +22,8 @@ const PostForm = (props) => {
     data.append("caption", caption);
 
     dispatch(createPost(data));
+    setCaption("");
+    props.onClose();
   };
 
   const updateCaption = (e) => {
