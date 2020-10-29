@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,10 +9,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 
 import "./Navbar.css";
+import { logout } from "./store/authentication";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
     backgroundColor: "#48c0b5",
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));
 
@@ -20,11 +24,18 @@ const Navbar = () => {
   const avatar = useSelector((state) => state.authentication.avatar);
   const user = useSelector((state) => state.authentication.username);
 
+  const dispatch = useDispatch();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(logout());
+  };
+
   const classes = useStyles();
   return (
     <div className="navbar-container">
       <AppBar className={classes.navbar} position="static">
-        <Toolbar>
+        <Toolbar className={classes.navbar}>
           <div className="logo-info">
             <FontAwesomeIcon
               icon={faLeaf}
@@ -32,11 +43,11 @@ const Navbar = () => {
             ></FontAwesomeIcon>
             <Button>Anigram</Button>
           </div>
-          {user && avatar ? (
+          {user ? (
             <div className="user-info" style={{ display: "flex" }}>
               <Avatar alt="user avatar" src={avatar}></Avatar>
               {/* <span>{user}</span> */}
-              <Button>Logout</Button>
+              <Button onClick={handleSubmit}>Logout</Button>
             </div>
           ) : null}
         </Toolbar>

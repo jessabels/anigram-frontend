@@ -30,8 +30,7 @@ export const login = (email, password) => async (dispatch) => {
     const { token, userId, username, avatar, likes } = data;
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem("userId", userId);
-    // const { token } = await response.json();
-    // window.localStorage.setItem(TOKEN_KEY, token);
+
     dispatch(setToken(token));
     dispatch(setCurrentUser(userId, username, avatar, likes));
   }
@@ -53,21 +52,19 @@ export const register = (username, password, email) => async (dispatch) => {
   });
 
   if (response.ok) {
-    const { token } = await response.json();
+    const { token, user } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
+    window.localStorage.setItem("userId", user.id);
     dispatch(setToken(token));
+    dispatch(loadUserInfo());
   }
 };
 
-// export const logout = () => async (dispatch, getState) => {
-//   const {
-//     authentication: { token },
-//   } = getState();
-
-//     window.localStorage.removeItem(TOKEN_KEY);
-//     dispatch(removeToken());
-
-// };
+export const logout = () => async (dispatch, getState) => {
+  window.localStorage.removeItem(TOKEN_KEY);
+  window.localStorage.removeItem("userId");
+  dispatch(removeToken());
+};
 
 export default function reducer(state = {}, action) {
   switch (action.type) {
@@ -88,9 +85,7 @@ export default function reducer(state = {}, action) {
     }
 
     case REMOVE_TOKEN: {
-      const newState = { ...state };
-      delete newState.token;
-      return newState;
+      return {};
     }
     default:
       return state;

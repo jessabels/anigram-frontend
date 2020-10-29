@@ -60,7 +60,7 @@ const Posts = () => {
     <>
       <Grid container>
         {posts.map((post) => (
-          <Grid item xs={6} sm={3}>
+          <Grid key={post.postId} item xs={6} sm={3}>
             <Card className={classes.root}>
               <CardHeader
                 avatar={
