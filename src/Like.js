@@ -1,12 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeaf } from "@fortawesome/free-solid-svg-icons";
-
+import { likePost, unlikePost } from "./store/posts";
 const Like = (props) => {
   const likes = useSelector((state) => state.authentication.likes);
+  const dispatch = useDispatch();
 
   const handleLike = (postId) => {
     console.log(postId);
+    if (!likes.includes(props.postId)) {
+      dispatch(likePost(props.postId));
+    } else {
+      dispatch(unlikePost(props.postId));
+    }
   };
   return (
     <FontAwesomeIcon

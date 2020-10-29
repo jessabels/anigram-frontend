@@ -10,8 +10,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 
 import { getAllPosts } from "./store/posts";
 import "./Posts.css";
@@ -36,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 const Posts = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
-  // const likes = useSelector((state) => state.authentication.likes);
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
@@ -46,10 +43,6 @@ const Posts = () => {
   if (!posts) {
     return <CircularProgress />;
   }
-
-  // const handleLike = (postId) => {
-  //   console.log(postId);
-  // };
 
   return (
     <>
@@ -75,15 +68,6 @@ const Posts = () => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  {/* <FontAwesomeIcon
-                    onClick={() => handleLike(post.postId)}
-                    icon={faLeaf}
-                    style={
-                      likes && likes.includes(post.postId)
-                        ? { color: "rgb(74, 165, 50)", cursor: "pointer" }
-                        : { color: "rgb(74 165 50 / 41%)", cursor: "pointer" }
-                    }
-                  ></FontAwesomeIcon> */}
                   <Like postId={post.postId} />
                 </CardActions>
               </div>
