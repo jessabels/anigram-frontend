@@ -10,7 +10,6 @@ import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 
 import "./Navbar.css";
 import { logout } from "./store/authentication";
-import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
@@ -46,7 +45,6 @@ const Navbar = () => {
           {user ? (
             <div className="user-info" style={{ display: "flex" }}>
               <Avatar alt="user avatar" src={avatar}></Avatar>
-              {/* <span>{user}</span> */}
               <Button onClick={handleSubmit}>Logout</Button>
             </div>
           ) : null}

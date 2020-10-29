@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -15,6 +15,7 @@ import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 
 import { getAllPosts } from "./store/posts";
 import "./Posts.css";
+import Like from "./Like";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const Posts = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
-  const likes = useSelector((state) => state.authentication.likes);
+  // const likes = useSelector((state) => state.authentication.likes);
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
@@ -46,9 +47,9 @@ const Posts = () => {
     return <CircularProgress />;
   }
 
-  const handleLike = (postId) => {
-    console.log(postId);
-  };
+  // const handleLike = (postId) => {
+  //   console.log(postId);
+  // };
 
   return (
     <>
@@ -74,7 +75,7 @@ const Posts = () => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <FontAwesomeIcon
+                  {/* <FontAwesomeIcon
                     onClick={() => handleLike(post.postId)}
                     icon={faLeaf}
                     style={
@@ -82,7 +83,8 @@ const Posts = () => {
                         ? { color: "rgb(74, 165, 50)", cursor: "pointer" }
                         : { color: "rgb(74 165 50 / 41%)", cursor: "pointer" }
                     }
-                  ></FontAwesomeIcon>
+                  ></FontAwesomeIcon> */}
+                  <Like postId={post.postId} />
                 </CardActions>
               </div>
             </Card>
