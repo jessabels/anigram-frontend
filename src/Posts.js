@@ -19,7 +19,7 @@ import "./Posts.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-    marginBottom: "30px",
+    margin: "30px 15px",
   },
   media: {
     height: 0,
