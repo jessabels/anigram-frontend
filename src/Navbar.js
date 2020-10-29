@@ -13,7 +13,6 @@ import { logout } from "./store/authentication";
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
-    backgroundColor: "#a3daac",
     display: "flex",
     justifyContent: "space-between",
   },

@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
+import Theme from "./Theme";
 import { loadToken, loadUserInfo } from "./store/authentication";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -37,18 +38,20 @@ function App() {
   }
   return (
     <>
-      <Router>
-        <Navbar />
-        <Route path="/signup" component={Signup}></Route>
-        <Route path="/login" component={Login}></Route>
+      <Theme>
+        <Router>
+          <Navbar />
+          <Route path="/signup" component={Signup}></Route>
+          <Route path="/login" component={Login}></Route>
 
-        <PrivateRoute
-          path="/"
-          exact={true}
-          needLogin={needLogin}
-          component={Homepage}
-        />
-      </Router>
+          <PrivateRoute
+            path="/"
+            exact={true}
+            needLogin={needLogin}
+            component={Homepage}
+          />
+        </Router>
+      </Theme>
     </>
   );
 }
