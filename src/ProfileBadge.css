@@ -1,0 +1,19 @@
+.profileBadge {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.userInfo {
+  display: inline-flex;
+}
+
+.avatar-edit {
+  display: inline-flex;
+  align-items: flex-end;
+  margin-right: 20px;
+  border: 1px solid #9cd8dc8f;
+  border-radius: 20px;
+  background-color: #9cd8dc8f;
+  padding: 20px;
+}

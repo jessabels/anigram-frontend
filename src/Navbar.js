@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -39,12 +40,18 @@ const Navbar = () => {
               icon={faLeaf}
               style={{ color: "#4aa532" }}
             ></FontAwesomeIcon>
-            <Button>Anigram</Button>
+            <Link style={{ textDecoration: "none" }} to="/">
+              <Button>Anigram</Button>
+            </Link>
           </div>
           {user ? (
             <div className="user-info" style={{ display: "flex" }}>
-              <Avatar alt="user avatar" src={avatar}></Avatar>
-              <Button onClick={handleSubmit}>Logout</Button>
+              <Link to="/profile">
+                <Avatar alt="user avatar" src={avatar}></Avatar>
+              </Link>
+              <Button style={{ marginLeft: "30px" }} onClick={handleSubmit}>
+                Logout
+              </Button>
             </div>
           ) : null}
         </Toolbar>

@@ -4,6 +4,7 @@ import Homepage from "./Homepage";
 import Navbar from "./Navbar";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Signup from "./Signup";
+import Profile from "./Profile";
 import Login from "./Login";
 import Theme from "./Theme";
 import { loadToken, loadUserInfo } from "./store/authentication";
@@ -49,6 +50,12 @@ function App() {
             exact={true}
             needLogin={needLogin}
             component={Homepage}
+          />
+          <PrivateRoute
+            path="/profile"
+            exact={true}
+            needLogin={needLogin}
+            component={Profile}
           />
         </Router>
       </Theme>
