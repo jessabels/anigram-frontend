@@ -1,5 +1,9 @@
 import React from "react";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core";
+import {
+  ThemeProvider,
+  //   https://github.com/mui-org/material-ui/issues/13394
+  unstable_createMuiStrictModeTheme as createMuiTheme,
+} from "@material-ui/core";
 
 const theme = createMuiTheme({
   palette: {

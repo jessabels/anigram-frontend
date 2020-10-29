@@ -7,7 +7,6 @@ const Like = (props) => {
   const dispatch = useDispatch();
 
   const handleLike = (postId) => {
-    console.log(postId);
     if (!likes.includes(props.postId)) {
       dispatch(likePost(props.postId));
     } else {
