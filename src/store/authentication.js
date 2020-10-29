@@ -27,13 +27,13 @@ export const login = (email, password) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    const { token, userId, username, avatar } = data;
+    const { token, userId, username, avatar, likes } = data;
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem("userId", userId);
     // const { token } = await response.json();
     // window.localStorage.setItem(TOKEN_KEY, token);
     dispatch(setToken(token));
-    dispatch(setCurrentUser(userId, username, avatar));
+    dispatch(setCurrentUser(userId, username, avatar, likes));
   }
 };
 
@@ -41,8 +41,8 @@ export const loadUserInfo = () => async (dispatch) => {
   const userId = window.localStorage.getItem("userId");
   const response = await fetch(`http://localhost:8080/api/users/${userId}`);
   const data = await response.json();
-  const { username, avatar } = data;
-  dispatch(setCurrentUser(userId, username, avatar));
+  const { username, avatar, likes } = data;
+  dispatch(setCurrentUser(userId, username, avatar, likes));
 };
 
 export const register = (username, password, email) => async (dispatch) => {
@@ -83,6 +83,7 @@ export default function reducer(state = {}, action) {
         userId: action.userId,
         username: action.username,
         avatar: action.avatar,
+        like: action.like,
       };
     }
 

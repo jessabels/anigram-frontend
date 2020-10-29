@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -19,6 +19,7 @@ import "./Posts.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    marginBottom: "30px",
   },
   media: {
     height: 0,
@@ -31,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Posts = () => {
+  // const [like, setLike] = useState(false);
+  const likes = [1, 3];
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
 
@@ -43,6 +46,16 @@ const Posts = () => {
   if (!posts) {
     return <CircularProgress />;
   }
+
+  const handleLike = (postId) => {
+    console.log(postId);
+    // if (!like) {
+    //   setLike(true);
+    // } else {
+    //   setLike(false);
+    // }
+  };
+
   return (
     <>
       <Grid container>
@@ -51,9 +64,7 @@ const Posts = () => {
             <Card className={classes.root}>
               <CardHeader
                 avatar={
-                  <Avatar aria-label="recipe" className={classes.avatar}>
-                    <img alt="user avatar" src={post.userAvatar} />
-                  </Avatar>
+                  <Avatar alt="user avatar" src={post.userAvatar}></Avatar>
                 }
                 subheader={post.createdAt}
               />
@@ -70,8 +81,13 @@ const Posts = () => {
                 </CardContent>
                 <CardActions disableSpacing>
                   <FontAwesomeIcon
+                    onClick={() => handleLike(post.postId)}
                     icon={faLeaf}
-                    style={{ color: "#4aa532" }}
+                    style={
+                      likes.includes(post.postId)
+                        ? { color: "rgb(74, 165, 50)", cursor: "pointer" }
+                        : { color: "rgb(74 165 50 / 41%)", cursor: "pointer" }
+                    }
                   ></FontAwesomeIcon>
                 </CardActions>
               </div>
