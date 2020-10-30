@@ -1,8 +1,12 @@
+import React, { useState } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import CreateIcon from "@material-ui/icons/Create";
 import Avatar from "@material-ui/core/Avatar";
+
 import "./ProfileBadge.css";
+import AvatarForm from "./AvatarForm";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -12,6 +16,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProfileBadge = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const displayDate = () => {
     const date = new Date().toDateString();
     return date;
@@ -24,11 +38,12 @@ const ProfileBadge = () => {
       <div className="userInfo">
         <div className="avatar-edit">
           <Avatar src={avatarUrl} className={classes.large} />
-          <CreateIcon />
+          <CreateIcon style={{ cursor: "pointer" }} onClick={handleClickOpen} />
         </div>
         <h1>{user ? `${user}` : ""}</h1>
       </div>
       <h2>{displayDate()}</h2>
+      <AvatarForm open={open} onClose={handleClose}></AvatarForm>
     </div>
   );
 };

@@ -4,13 +4,11 @@ const TOKEN_KEY = "anigram/authentication/token";
 const LOAD_POSTS = "anigram/posts";
 const LIKE_POST = "anigram/posts/like";
 const UNLIKE_POST = "anigram/posts/unlike";
-// const CREATE_POST = "anigram/posts/create";
 
 export const loadPosts = (posts) => ({ type: LOAD_POSTS, posts });
 
 export const like = (likes) => ({ type: LIKE_POST, likes });
 export const unlike = (likes) => ({ type: UNLIKE_POST, likes });
-// export const post = (post) => ({ type: CREATE_POST, post });
 
 export const getAllPosts = () => async (dispatch) => {
   const token = localStorage.getItem(TOKEN_KEY);
@@ -78,7 +76,6 @@ export const createPost = (data) => async (dispatch, getState) => {
 
   if (response.ok) {
     const newPost = await response.json();
-    // dispatch(post(newPost));
     dispatch(getAllPosts());
     return newPost;
   }
@@ -98,12 +95,7 @@ export default function reducer(state = {}, action) {
         likes: action.likes,
       };
     }
-    // case CREATE_POST: {
-    //   return {
-    //     ...state,
-    //     posts: { ...state.posts, ...action.post },
-    //   };
-    // }
+
     default:
       return state;
   }

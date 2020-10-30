@@ -45,6 +45,27 @@ export const loadUserInfo = () => async (dispatch) => {
   dispatch(setCurrentUser(userId, username, avatar, likes));
 };
 
+export const updateAvatar = (avatar) => async (dispatch, getState) => {
+  const {
+    authentication: { token, userId },
+  } = getState();
+
+  const response = await fetch(`http://localhost:8080/api/users/${userId}`, {
+    method: "put",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ avatar }),
+  });
+
+  if (response.ok) {
+    const user = await response.json();
+    dispatch(loadUserInfo());
+    return user;
+  }
+};
+
 export const register = (username, password, email) => async (dispatch) => {
   const response = await fetch(`http://localhost:8080/api/users`, {
     method: "post",
