@@ -23,7 +23,10 @@ export const loadToken = () => async (dispatch) => {
 export const login = (email, password) => async (dispatch) => {
   const response = await fetch(`${api}/session`, {
     method: "post",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ email, password }),
   });
 
