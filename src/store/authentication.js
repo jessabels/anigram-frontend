@@ -24,7 +24,6 @@ export const login = (email, password) => async (dispatch) => {
   const response = await fetch(`${api}/session`, {
     method: "post",
     headers: {
-      "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),

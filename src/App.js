@@ -31,8 +31,13 @@ function App() {
   useEffect(() => {
     setLoaded(true);
     dispatch(loadToken());
-    dispatch(loadUserInfo());
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(loadUserInfo());
+    }
+  }, [token]);
 
   if (!loaded) {
     return null;
