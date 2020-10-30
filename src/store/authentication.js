@@ -1,3 +1,4 @@
+import { api } from "../config";
 const TOKEN_KEY = "anigram/authentication/token";
 const SET_TOKEN = "anigram/authentication/SET_TOKEN";
 const REMOVE_TOKEN = "anigram/authentication/REMOVE_TOKEN";
@@ -20,7 +21,7 @@ export const loadToken = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-  const response = await fetch(`http://localhost:8080/api/session`, {
+  const response = await fetch(`${api}/session`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -39,7 +40,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const loadUserInfo = () => async (dispatch) => {
   const userId = window.localStorage.getItem("userId");
-  const response = await fetch(`http://localhost:8080/api/users/${userId}`);
+  const response = await fetch(`${api}/users/${userId}`);
   const data = await response.json();
   const { username, avatar, likes } = data;
   dispatch(setCurrentUser(userId, username, avatar, likes));
@@ -50,7 +51,7 @@ export const updateAvatar = (avatar) => async (dispatch, getState) => {
     authentication: { token, userId },
   } = getState();
 
-  const response = await fetch(`http://localhost:8080/api/users/${userId}`, {
+  const response = await fetch(`${api}/users/${userId}`, {
     method: "put",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -67,7 +68,7 @@ export const updateAvatar = (avatar) => async (dispatch, getState) => {
 };
 
 export const register = (username, password, email) => async (dispatch) => {
-  const response = await fetch(`http://localhost:8080/api/users`, {
+  const response = await fetch(`${api}/users`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password, email }),

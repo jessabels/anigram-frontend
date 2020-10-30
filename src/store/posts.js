@@ -1,3 +1,5 @@
+import { api } from "../config";
+
 import { loadUserInfo } from "./authentication";
 
 const TOKEN_KEY = "anigram/authentication/token";
@@ -12,7 +14,7 @@ export const unlike = (likes) => ({ type: UNLIKE_POST, likes });
 
 export const getAllPosts = () => async (dispatch) => {
   const token = localStorage.getItem(TOKEN_KEY);
-  const response = await fetch(`http://localhost:8080/api/posts`, {
+  const response = await fetch(`${api}/posts`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -26,17 +28,14 @@ export const getAllPosts = () => async (dispatch) => {
 export const likePost = (postId) => async (dispatch) => {
   const token = localStorage.getItem(TOKEN_KEY);
   const userId = localStorage.getItem("userId");
-  const response = await fetch(
-    `http://localhost:8080/api/posts/${postId}/likes`,
-    {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ userId, postId }),
-    }
-  );
+  const response = await fetch(`${api}/posts/${postId}/likes`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ userId, postId }),
+  });
   if (response.ok) {
     const likes = await response.json();
     dispatch(like(likes));
@@ -46,15 +45,12 @@ export const likePost = (postId) => async (dispatch) => {
 
 export const unlikePost = (postId) => async (dispatch) => {
   const token = localStorage.getItem(TOKEN_KEY);
-  const response = await fetch(
-    `http://localhost:8080/api/posts/${postId}/likes`,
-    {
-      method: "delete",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(`${api}/posts/${postId}/likes`, {
+    method: "delete",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (response.ok) {
     const likes = await response.json();
     dispatch(unlike(likes));
@@ -66,7 +62,7 @@ export const createPost = (data) => async (dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`http://localhost:8080/api/posts`, {
+  const response = await fetch(`${api}/posts`, {
     method: "post",
     headers: {
       Authorization: `Bearer ${token}`,
