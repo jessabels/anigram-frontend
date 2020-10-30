@@ -9,12 +9,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "30px 38px",
     width: "100%",
     maxWidth: "500px",
-    margin: "250px 30px",
     border: "1px solid #dddd",
-    position: "absolute",
-    top: " 50%",
-    left: " 50%",
-    transform: "translate(-50%, -50%)",
     textAlign: "center",
   },
 }));
@@ -22,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const DailyChecklist = () => {
   const classes = useStyles();
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <Paper className={classes.root}>
         <h3>Daily Checklist</h3>
         <DailyChecklistItem />

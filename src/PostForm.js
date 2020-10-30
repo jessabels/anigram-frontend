@@ -10,6 +10,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { createPost } from "./store/posts";
 
 const PostForm = (props) => {
+  const { setNewPostLoading } = props;
   const [image, setImage] = useState("");
   const [caption, setCaption] = useState("");
 
@@ -24,6 +25,7 @@ const PostForm = (props) => {
     dispatch(createPost(data));
     setCaption("");
     props.onClose();
+    setNewPostLoading(true);
   };
 
   const updateCaption = (e) => {

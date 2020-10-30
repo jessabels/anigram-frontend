@@ -11,10 +11,16 @@ import Grid from "@material-ui/core/Grid";
 import { updateAvatar } from "./store/authentication";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: "20px",
+  img: {
+    width: theme.spacing(20),
+    height: theme.spacing(20),
+    cursor: "pointer",
   },
-  large: {
+  selectedImg: {
+    // border: "1px solid black",
+    borderStyle: "solid",
+    borderWidth: "3px",
+    borderColor: theme.palette.secondary.main,
     width: theme.spacing(20),
     height: theme.spacing(20),
   },
@@ -27,11 +33,17 @@ const AvatarForm = (props) => {
   const submitAvatar = (e) => {
     e.preventDefault();
     dispatch(updateAvatar(selectedAvatar));
+    setSelectedAvatar("");
     props.onClose();
   };
 
   const selectAvatar = (imgSrc) => {
     setSelectedAvatar(imgSrc);
+  };
+
+  const handleCancel = () => {
+    setSelectedAvatar("");
+    props.onClose();
   };
 
   const classes = useStyles();
@@ -49,49 +61,79 @@ const AvatarForm = (props) => {
             <Grid item xs={6} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/bear.PNG"
-                className={classes.large}
+                className={
+                  selectedAvatar ===
+                  "https://anigram-images.s3.amazonaws.com/avatars/bear.PNG"
+                    ? classes.selectedImg
+                    : classes.img
+                }
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
             <Grid item xs={6} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/cat.PNG"
-                className={classes.large}
+                className={
+                  selectedAvatar ===
+                  "https://anigram-images.s3.amazonaws.com/avatars/cat.PNG"
+                    ? classes.selectedImg
+                    : classes.img
+                }
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
-            </Grid>{" "}
+            </Grid>
             <Grid item xs={6} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/fox.PNG"
-                className={classes.large}
+                className={
+                  selectedAvatar ===
+                  "https://anigram-images.s3.amazonaws.com/avatars/fox.PNG"
+                    ? classes.selectedImg
+                    : classes.img
+                }
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
             <Grid item xs={6} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/frog.PNG"
-                className={classes.large}
+                className={
+                  selectedAvatar ===
+                  "https://anigram-images.s3.amazonaws.com/avatars/frog.PNG"
+                    ? classes.selectedImg
+                    : classes.img
+                }
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
             <Grid item xs={6} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/monkey.PNG"
-                className={classes.large}
+                className={
+                  selectedAvatar ===
+                  "https://anigram-images.s3.amazonaws.com/avatars/monkey.PNG"
+                    ? classes.selectedImg
+                    : classes.img
+                }
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
             <Grid item xs={6} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/pug.PNG"
-                className={classes.large}
+                className={
+                  selectedAvatar ===
+                  "https://anigram-images.s3.amazonaws.com/avatars/pug.PNG"
+                    ? classes.selectedImg
+                    : classes.img
+                }
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.onClose} color="primary">
+          <Button onClick={handleCancel} color="primary">
             Cancel
           </Button>
           <Button onClick={submitAvatar} color="primary">

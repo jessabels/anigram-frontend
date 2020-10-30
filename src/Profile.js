@@ -4,10 +4,10 @@ import ProfileBadge from "./ProfileBadge";
 
 const Profile = () => {
   return (
-    <>
+    <div>
       <ProfileBadge />
       <DailyChecklist />
-    </>
+    </div>
   );
 };
 

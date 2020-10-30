@@ -10,6 +10,7 @@ const Homepage = () => {
   const user = useSelector((state) => state.authentication.username);
 
   const [open, setOpen] = React.useState(false);
+  const [newPostLoading, setNewPostLoading] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,13 +23,24 @@ const Homepage = () => {
   return (
     <>
       <h1>{!user ? `Welcome to Anigram!` : `Welcome to Anigram, ${user}!`}</h1>
-      <Posts />
+      <Posts
+        newPostLoading={newPostLoading}
+        setNewPostLoading={setNewPostLoading}
+      />
       <div className="fab-container">
-        <Fab onClick={handleClickOpen} color="primary" aria-label="add">
+        <Fab
+          onClick={handleClickOpen}
+          style={{ backgroundColor: "#fc3" }}
+          aria-label="add"
+        >
           <AddIcon />
         </Fab>
       </div>
-      <PostForm open={open} onClose={handleClose} />
+      <PostForm
+        setNewPostLoading={setNewPostLoading}
+        open={open}
+        onClose={handleClose}
+      />
     </>
   );
 };

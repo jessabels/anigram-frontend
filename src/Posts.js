@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -10,6 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import { getAllPosts } from "./store/posts";
 import "./Posts.css";
@@ -17,7 +18,7 @@ import Like from "./Like";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: "345px",
     margin: "30px 15px",
     backgroundColor: theme.palette.secondary.main,
   },
@@ -31,12 +32,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Posts = () => {
+const Posts = (props) => {
+  const { newPostLoading, setNewPostLoading } = props;
+
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
   useEffect(() => {
     dispatch(getAllPosts());
-  }, [dispatch]);
+  }, [dispatch, newPostLoading]);
+
+  useEffect(() => {
+    setNewPostLoading(false);
+  }, [dispatch, newPostLoading]);
 
   const classes = useStyles();
 
@@ -74,6 +81,10 @@ const Posts = () => {
             </Card>
           </Grid>
         ))}
+
+        {newPostLoading ? (
+          <Skeleton variant="rect" width={345} height={345}></Skeleton>
+        ) : null}
       </Grid>
     </>
   );
