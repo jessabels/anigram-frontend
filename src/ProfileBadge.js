@@ -28,7 +28,7 @@ const ProfileBadge = () => {
         </div>
         <h1>{user ? `${user}` : ""}</h1>
       </div>
-      <h2>{`Today is ${displayDate()}`}</h2>
+      <h2>{displayDate()}</h2>
     </div>
   );
 };
