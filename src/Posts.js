@@ -75,7 +75,7 @@ const Posts = (props) => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <Like postId={post.postId} />
+                  <Like likes={post.likes} postId={post.postId} />
                 </CardActions>
               </div>
             </Card>

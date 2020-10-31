@@ -21,6 +21,7 @@ export const getAllPosts = () => async (dispatch) => {
   });
   if (response.ok) {
     const posts = await response.json();
+    console.log(posts);
     dispatch(loadPosts(posts));
   }
 };
@@ -40,6 +41,7 @@ export const likePost = (postId) => async (dispatch) => {
     const likes = await response.json();
     dispatch(like(likes));
     dispatch(loadUserInfo());
+    dispatch(getAllPosts());
   }
 };
 
@@ -55,6 +57,7 @@ export const unlikePost = (postId) => async (dispatch) => {
     const likes = await response.json();
     dispatch(unlike(likes));
     dispatch(loadUserInfo());
+    dispatch(getAllPosts());
   }
 };
 
