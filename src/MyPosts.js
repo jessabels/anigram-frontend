@@ -15,13 +15,20 @@ import { getMyPosts } from "./store/posts";
 import "./Posts.css";
 
 const useStyles = makeStyles((theme) => ({
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
+  root: {
+    backgroundColor: "#c8e9eb",
+    width: "100%",
+    padding: "20px",
   },
 
   card: {
+    margin: "30px 15px",
     padding: theme.spacing(2),
+  },
+
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
   },
 }));
 
@@ -53,12 +60,12 @@ const MyPosts = () => {
     );
   }
   return (
-    <div style={{ backgroundColor: "#c8e9eb" }}>
+    <div className={classes.root}>
       <h3 style={{ textAlign: "center" }}>My Posts</h3>
       <Grid container>
         {posts.map((post) => (
-          <Grid key={post.postId} item xs={6} sm={6}>
-            <Card className={classes.root}>
+          <Grid key={post.postId} item xs={12} sm={6}>
+            <Card className={classes.card}>
               <CardHeader
                 avatar={
                   <Avatar alt="user avatar" src={post.userAvatar}></Avatar>

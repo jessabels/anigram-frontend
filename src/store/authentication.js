@@ -1,4 +1,5 @@
 import { api } from "../config";
+import { getMyPosts } from "./posts";
 const TOKEN_KEY = "anigram/authentication/token";
 const SET_TOKEN = "anigram/authentication/SET_TOKEN";
 const REMOVE_TOKEN = "anigram/authentication/REMOVE_TOKEN";
@@ -65,6 +66,7 @@ export const updateAvatar = (avatar) => async (dispatch, getState) => {
   if (response.ok) {
     const user = await response.json();
     dispatch(loadUserInfo());
+    dispatch(getMyPosts());
     return user;
   }
 };
