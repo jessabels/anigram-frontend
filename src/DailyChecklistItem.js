@@ -21,7 +21,6 @@ const DailyChecklistItem = (props) => {
   ]);
   const completeItem = (index) => {
     const newChecklist = [...items];
-    console.log(newChecklist[index].isCompleted);
     newChecklist[index].isCompleted = !newChecklist[index].isCompleted;
     setItems(newChecklist);
   };

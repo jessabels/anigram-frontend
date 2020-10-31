@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
   selectedImg: {
-    // border: "1px solid black",
     borderStyle: "solid",
     borderWidth: "3px",
     borderColor: theme.palette.secondary.main,
@@ -137,7 +136,7 @@ const AvatarForm = (props) => {
             Cancel
           </Button>
           <Button onClick={submitAvatar} color="primary">
-            Submit
+            Save
           </Button>
         </DialogActions>
       </Dialog>

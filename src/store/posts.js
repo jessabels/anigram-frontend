@@ -21,7 +21,21 @@ export const getAllPosts = () => async (dispatch) => {
   });
   if (response.ok) {
     const posts = await response.json();
-    console.log(posts);
+    dispatch(loadPosts(posts));
+  }
+};
+
+export const getMyPosts = () => async (dispatch) => {
+  const token = localStorage.getItem(TOKEN_KEY);
+  const response = await fetch(`${api}/posts/myPosts`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.ok) {
+    const posts = await response.json();
+
     dispatch(loadPosts(posts));
   }
 };
