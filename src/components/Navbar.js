@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 
 import "./Navbar.css";
-import { logout } from "./store/authentication";
+import { logout } from "../store/authentication";
 
 const useStyles = makeStyles((theme) => ({
   navbar: {

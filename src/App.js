@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Homepage from "./Homepage";
-import Navbar from "./Navbar";
+import Homepage from "./components/Homepage";
+import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import Signup from "./Signup";
-import Profile from "./Profile";
-import Login from "./Login";
+import Signup from "./components/Signup";
+import Profile from "./components/Profile";
+import Login from "./components/Login";
 import Theme from "./Theme";
 import { loadToken, loadUserInfo } from "./store/authentication";
 

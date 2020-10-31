@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -8,55 +8,64 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
-import Skeleton from "@material-ui/lab/Skeleton";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { getAllPosts } from "./store/posts";
+import { getMyPosts } from "../store/posts";
 import "./Posts.css";
-import Like from "./Like";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "345px",
-    margin: "30px 15px",
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#c8e9eb",
+    width: "100%",
+    padding: "20px",
   },
+
+  card: {
+    margin: "30px 15px",
+    padding: theme.spacing(2),
+  },
+
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
   },
-
-  card: {
-    padding: theme.spacing(2),
-  },
 }));
 
-const Posts = (props) => {
-  const { newPostLoading, setNewPostLoading } = props;
-
+const MyPosts = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
+
   useEffect(() => {
-    dispatch(getAllPosts());
-  }, [dispatch, newPostLoading]);
-
-  // useEffect(() => {
-  //   setNewPostLoading(false);
-  // }, [dispatch, newPostLoading]);
-
-  const classes = useStyles();
+    dispatch(getMyPosts());
+  }, [dispatch]);
 
   if (!posts) {
     return <CircularProgress />;
+  } else if (posts.length === 0) {
+    return (
+      <div
+        style={{
+          backgroundColor: "#c8e9eb",
+          padding: "30px 38px",
+          width: "100%",
+          maxWidth: "500px",
+          border: "1px solid #dddd",
+          textAlign: "center",
+        }}
+      >
+        <h1 style={{ textAlign: "center" }}>No posts yet!</h1>
+      </div>
+    );
   }
-
   return (
-    <>
+    <div className={classes.root}>
+      <h3 style={{ textAlign: "center" }}>My Posts</h3>
       <Grid container>
         {posts.map((post) => (
-          <Grid key={post.postId} item xs={6} sm={3}>
-            <Card className={classes.root}>
+          <Grid key={post.postId} item xs={12} sm={6}>
+            <Card className={classes.card}>
               <CardHeader
                 avatar={
                   <Avatar alt="user avatar" src={post.userAvatar}></Avatar>
@@ -75,19 +84,17 @@ const Posts = (props) => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <Like likes={post.likes} postId={post.postId} />
+                  <span style={{ fontSize: ".5em", marginRight: "5px" }}>
+                    {post.likes}
+                  </span>
                 </CardActions>
               </div>
             </Card>
           </Grid>
         ))}
-
-        {/* {newPostLoading ? (
-          <Skeleton variant="rect" width={345} height={345}></Skeleton>
-        ) : null} */}
       </Grid>
-    </>
+    </div>
   );
 };
 
-export default Posts;
+export default MyPosts;

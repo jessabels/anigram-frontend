@@ -8,7 +8,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
-import { updateAvatar } from "./store/authentication";
+import { updateAvatar } from "../store/authentication";
 
 const useStyles = makeStyles((theme) => ({
   img: {

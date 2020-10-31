@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import { NavLink, Redirect } from "react-router-dom";
 
 import "./Login.css";
-import { register } from "./store/authentication";
+import { login } from "../store/authentication";
+// import { getUserInfo } from "./store/user";
 
-const Signup = () => {
+const Login = () => {
   const token = useSelector((state) => state.authentication.token);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(register(username, password, email));
+    dispatch(login(email, password));
+    // dispatch(getUserInfo(token));
   };
   const updateEmail = (event) => {
     setEmail(event.target.value);
@@ -25,23 +26,13 @@ const Signup = () => {
     setPassword(event.target.value);
   };
 
-  const updateUsername = (event) => {
-    setUsername(event.target.value);
-  };
-
   if (token) {
     return <Redirect to="/" />;
   }
+
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit} className="loginForm">
-        <label htmlFor="">Username:</label>
-        <input
-          type="username"
-          placeholder="Username"
-          value={username}
-          onChange={updateUsername}
-        />
         <label>Email:</label>
         <input
           type="text"
@@ -56,11 +47,13 @@ const Signup = () => {
           value={password}
           onChange={updatePassword}
         />
-        <Button type="submit">Sign Up</Button>
-        <NavLink to="/login">Already have an account? Login Here</NavLink>
+        <Button type="submit">Login</Button>
+        <Button>Demo Login</Button>
+
+        <NavLink to="/signup">Don't have an account? Sign Up Here</NavLink>
       </form>
     </div>
   );
 };
 
-export default Signup;
+export default Login;

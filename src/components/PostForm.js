@@ -7,7 +7,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import { createPost } from "./store/posts";
+import { createPost } from "../store/posts";
 
 const PostForm = (props) => {
   const { setNewPostLoading } = props;
