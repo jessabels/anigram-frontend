@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DailyChecklistItem.css";
 
 import Checkbox from "@material-ui/core/Checkbox";
@@ -19,11 +19,53 @@ const DailyChecklistItem = (props) => {
     { text: "Do some fishing", isCompleted: false },
     { text: "Go bug catching", isCompleted: false },
   ]);
+
+  const userId = localStorage.getItem("userId");
+  const cookie = document.cookie;
+  let cookieData;
+
+  if (cookie) {
+    const splitCookie = cookie.split(";");
+    console.log(splitCookie);
+    cookieData = splitCookie.map(
+      (currentCookie) => currentCookie.split("=")[1]
+    );
+  }
+
+  const load = () => {
+    if (cookieData) {
+      const newChecklist = [...items];
+      cookieData.forEach((current) => {
+        newChecklist[current].isCompleted = !newChecklist[current].isCompleted;
+        setItems(newChecklist);
+      });
+    }
+  };
+
+  const setCookie = (index, userId) => {
+    document.cookie = `abc${userId}${index}=${index}`;
+  };
+
+  const deleteCookie = (index, userId) => {
+    document.cookie = `abc${userId}${index}=${index}; expires=Thu, 21 Oct 2020 07:28:00 GMT`;
+  };
+
   const completeItem = (index) => {
     const newChecklist = [...items];
+    console.log(newChecklist[index]);
     newChecklist[index].isCompleted = !newChecklist[index].isCompleted;
     setItems(newChecklist);
+    setCookie(index, userId);
+
+    if (cookieData && cookieData.includes(index.toString())) {
+      deleteCookie(index, userId);
+    }
   };
+
+  useEffect(() => {
+    load();
+  }, []);
+
   return (
     <div className="list-container">
       {items.map((item, index) => (

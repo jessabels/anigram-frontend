@@ -10,6 +10,7 @@ const Signup = () => {
   const token = useSelector((state) => state.authentication.token);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
   const dispatch = useDispatch();
 
@@ -23,6 +24,10 @@ const Signup = () => {
 
   const updatePassword = (event) => {
     setPassword(event.target.value);
+  };
+
+  const updateConfirmPassword = (event) => {
+    setConfirmPassword(event.target.value);
   };
 
   const updateUsername = (event) => {
@@ -55,6 +60,13 @@ const Signup = () => {
           placeholder="Password"
           value={password}
           onChange={updatePassword}
+        />
+        <label>Confirm Password:</label>
+        <input
+          type="password"
+          placeholder="Password"
+          value={confirmPassword}
+          onChange={updateConfirmPassword}
         />
         <Button type="submit">Sign Up</Button>
         <NavLink to="/login">Already have an account? Login Here</NavLink>

@@ -35,7 +35,6 @@ export const getMyPosts = () => async (dispatch) => {
 
   if (response.ok) {
     const posts = await response.json();
-
     dispatch(loadPosts(posts));
   }
 };

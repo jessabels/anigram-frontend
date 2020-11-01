@@ -37,6 +37,13 @@ const MyPosts = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
 
+  // const myPosts = () => {
+  //   posts.filter((post) => post.userId === localStorage.getItem("userId"););
+  // };
+  // if (posts) {
+  //   myPosts();
+  // }
+
   useEffect(() => {
     dispatch(getMyPosts());
   }, [dispatch]);
@@ -84,7 +91,7 @@ const MyPosts = () => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <span style={{ fontSize: ".5em", marginRight: "5px" }}>
+                  <span style={{ fontSize: ".8em", marginRight: "5px" }}>
                     {post.likes}
                   </span>
                 </CardActions>
