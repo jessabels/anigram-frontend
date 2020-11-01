@@ -26,7 +26,6 @@ const DailyChecklistItem = (props) => {
 
   if (cookie) {
     const splitCookie = cookie.split(";");
-    console.log(splitCookie);
     cookieData = splitCookie.map(
       (currentCookie) => currentCookie.split("=")[1]
     );
@@ -43,7 +42,18 @@ const DailyChecklistItem = (props) => {
   };
 
   const setCookie = (index, userId) => {
-    document.cookie = `abc${userId}${index}=${index}`;
+    let expires = "";
+    let date = new Date();
+    let midnight = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      23,
+      59,
+      59
+    );
+    expires = "; expires=" + midnight.toGMTString();
+    document.cookie = `abc${userId}${index}=${index} ${expires}`;
   };
 
   const deleteCookie = (index, userId) => {
@@ -52,7 +62,6 @@ const DailyChecklistItem = (props) => {
 
   const completeItem = (index) => {
     const newChecklist = [...items];
-    console.log(newChecklist[index]);
     newChecklist[index].isCompleted = !newChecklist[index].isCompleted;
     setItems(newChecklist);
     setCookie(index, userId);
