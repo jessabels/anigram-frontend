@@ -9,8 +9,8 @@ import { login } from "../store/authentication";
 
 const Login = () => {
   const token = useSelector((state) => state.authentication.token);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("demo@demo.com");
+  const [password, setPassword] = useState("123");
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -48,7 +48,6 @@ const Login = () => {
           onChange={updatePassword}
         />
         <Button type="submit">Login</Button>
-        <Button>Demo Login</Button>
 
         <NavLink to="/signup">Don't have an account? Sign Up Here</NavLink>
       </form>

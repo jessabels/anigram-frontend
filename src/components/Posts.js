@@ -47,6 +47,7 @@ const Posts = (props) => {
 
   const classes = useStyles();
 
+  console.log(posts);
   if (!posts) {
     return <CircularProgress />;
   }
@@ -61,7 +62,7 @@ const Posts = (props) => {
                 avatar={
                   <Avatar alt="user avatar" src={post.userAvatar}></Avatar>
                 }
-                subheader={post.createdAt}
+                subheader={post.user}
               />
               <CardMedia className={classes.media} image={post.imageUrl} />
               <div className="photo-text-container">
