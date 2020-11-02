@@ -6,6 +6,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { CircularProgress } from "@material-ui/core";
 
 import { createPost } from "../store/posts";
 import { handleErrors } from "../store/authentication";
@@ -13,6 +14,7 @@ import { handleErrors } from "../store/authentication";
 const PostForm = (props) => {
   let errors = useSelector((state) => state.authentication.errors);
 
+  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
   const [caption, setCaption] = useState("");
   const dispatch = useDispatch();
@@ -26,11 +28,13 @@ const PostForm = (props) => {
     : null;
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const data = new FormData();
     data.append("file", image);
     data.append("caption", caption);
     await dispatch(createPost(data));
+    setLoading(false);
     setCaption("");
     if (!errors || errors.length === 0) {
       props.onClose();
@@ -50,6 +54,7 @@ const PostForm = (props) => {
       aria-labelledby="form-dialog-title"
     >
       <DialogTitle id="form-dialog-title">Upload a Photo</DialogTitle>
+      {loading ? <CircularProgress /> : null}
       <DialogContent>
         <TextField
           autoFocus
@@ -74,6 +79,7 @@ const PostForm = (props) => {
           required
         />
       </DialogContent>
+
       <ul>{listOfErrors}</ul>
       <DialogActions>
         <Button onClick={onCancel} color="primary">
