@@ -4,6 +4,8 @@ const TOKEN_KEY = "anigram/authentication/token";
 const SET_TOKEN = "anigram/authentication/SET_TOKEN";
 const REMOVE_TOKEN = "anigram/authentication/REMOVE_TOKEN";
 const SET_CURRENT_USER = "SET_CURRENT_USER";
+const ERRORS_ARRAY = "anigram/erros";
+
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
 export const setCurrentUser = (userId, username, avatar, likes) => ({
@@ -14,6 +16,13 @@ export const setCurrentUser = (userId, username, avatar, likes) => ({
   likes,
 });
 
+export const handleErrors = (errors) => {
+  return {
+    type: ERRORS_ARRAY,
+    errors,
+  };
+};
+
 export const loadToken = () => async (dispatch) => {
   const token = window.localStorage.getItem(TOKEN_KEY);
   if (token) {
@@ -22,22 +31,30 @@ export const loadToken = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-  const response = await fetch(`${api}/session`, {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
-  });
+  try {
+    const response = await fetch(`${api}/session`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-  if (response.ok) {
-    const data = await response.json();
-    const { token, userId, username, avatar, likes } = data;
-    window.localStorage.setItem(TOKEN_KEY, token);
-    window.localStorage.setItem("userId", userId);
+    if (response.ok) {
+      const data = await response.json();
+      const { token, userId, username, avatar, likes } = data;
+      window.localStorage.setItem(TOKEN_KEY, token);
+      window.localStorage.setItem("userId", userId);
 
-    dispatch(setToken(token));
-    dispatch(setCurrentUser(userId, username, avatar, likes));
+      dispatch(setToken(token));
+      dispatch(setCurrentUser(userId, username, avatar, likes));
+    } else {
+      throw response;
+    }
+  } catch (err) {
+    const badRequest = await err.json();
+    const errors = badRequest.error;
+    dispatch(handleErrors(errors));
   }
 };
 
@@ -71,19 +88,29 @@ export const updateAvatar = (avatar) => async (dispatch, getState) => {
   }
 };
 
-export const register = (username, password, email) => async (dispatch) => {
-  const response = await fetch(`${api}/users`, {
-    method: "post",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password, email }),
-  });
+export const register = (username, password, email, confirmPassword) => async (
+  dispatch
+) => {
+  try {
+    const response = await fetch(`${api}/users`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password, email, confirmPassword }),
+    });
 
-  if (response.ok) {
-    const { token, user } = await response.json();
-    window.localStorage.setItem(TOKEN_KEY, token);
-    window.localStorage.setItem("userId", user.id);
-    dispatch(setToken(token));
-    dispatch(loadUserInfo());
+    if (response.ok) {
+      const { token, user } = await response.json();
+      window.localStorage.setItem(TOKEN_KEY, token);
+      window.localStorage.setItem("userId", user.id);
+      dispatch(setToken(token));
+      dispatch(loadUserInfo());
+    } else {
+      throw response;
+    }
+  } catch (err) {
+    const badRequest = await err.json();
+    const errors = badRequest.error;
+    dispatch(handleErrors(errors));
   }
 };
 
@@ -114,6 +141,13 @@ export default function reducer(state = {}, action) {
     case REMOVE_TOKEN: {
       return {};
     }
+    case ERRORS_ARRAY: {
+      return {
+        ...state,
+        errors: action.errors,
+      };
+    }
+
     default:
       return state;
   }

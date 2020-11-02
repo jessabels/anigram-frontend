@@ -47,7 +47,6 @@ const Posts = (props) => {
 
   const classes = useStyles();
 
-  console.log(posts);
   if (!posts) {
     return <CircularProgress />;
   }

@@ -8,15 +8,24 @@ import { register } from "../store/authentication";
 
 const Signup = () => {
   const token = useSelector((state) => state.authentication.token);
+  const errors = useSelector((state) => state.authentication.errors);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
   const dispatch = useDispatch();
 
+  const listOfErrors = errors
+    ? errors.map((error) => (
+        <li key={error} style={{ color: "red" }}>
+          {error}
+        </li>
+      ))
+    : null;
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(register(username, password, email));
+    dispatch(register(username, password, email, confirmPassword));
   };
   const updateEmail = (event) => {
     setEmail(event.target.value);
@@ -42,6 +51,7 @@ const Signup = () => {
       <form onSubmit={handleSubmit} className="loginForm">
         <label htmlFor="">Username:</label>
         <input
+          name="username"
           type="username"
           placeholder="Username"
           value={username}
@@ -49,6 +59,7 @@ const Signup = () => {
         />
         <label>Email:</label>
         <input
+          name="email"
           type="text"
           placeholder="Email"
           value={email}
@@ -56,6 +67,7 @@ const Signup = () => {
         />
         <label>Password:</label>
         <input
+          name="password"
           type="password"
           placeholder="Password"
           value={password}
@@ -63,12 +75,14 @@ const Signup = () => {
         />
         <label>Confirm Password:</label>
         <input
+          name="confirmPassword"
           type="password"
           placeholder="Password"
           value={confirmPassword}
           onChange={updateConfirmPassword}
         />
         <Button type="submit">Sign Up</Button>
+        <ul>{listOfErrors}</ul>
         <NavLink to="/login">Already have an account? Login Here</NavLink>
       </form>
     </div>

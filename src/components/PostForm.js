@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,26 +8,38 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { createPost } from "../store/posts";
+import { handleErrors } from "../store/authentication";
 
 const PostForm = (props) => {
-  const { setNewPostLoading } = props;
+  let errors = useSelector((state) => state.authentication.errors);
+
   const [image, setImage] = useState("");
   const [caption, setCaption] = useState("");
-
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const listOfErrors = errors
+    ? errors.map((error) => (
+        <li key={error} style={{ color: "red" }}>
+          {error}
+        </li>
+      ))
+    : null;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
     data.append("file", image);
     data.append("caption", caption);
-
-    dispatch(createPost(data));
+    await dispatch(createPost(data));
     setCaption("");
-    props.onClose();
-    setNewPostLoading(true);
+    if (!errors || errors.length === 0) {
+      props.onClose();
+    }
   };
-
+  const onCancel = () => {
+    dispatch(handleErrors(null));
+    props.onClose();
+  };
   const updateCaption = (e) => {
     setCaption(e.target.value);
   };
@@ -62,8 +74,9 @@ const PostForm = (props) => {
           required
         />
       </DialogContent>
+      <ul>{listOfErrors}</ul>
       <DialogActions>
-        <Button onClick={props.onClose} color="primary">
+        <Button onClick={onCancel} color="primary">
           Cancel
         </Button>
         <Button onClick={handleSubmit} color="primary">

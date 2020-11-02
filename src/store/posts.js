@@ -1,6 +1,6 @@
 import { api } from "../config";
 
-import { loadUserInfo } from "./authentication";
+import { handleErrors, loadUserInfo } from "./authentication";
 
 const TOKEN_KEY = "anigram/authentication/token";
 const LOAD_POSTS = "anigram/posts";
@@ -78,18 +78,27 @@ export const createPost = (data) => async (dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`${api}/posts`, {
-    method: "post",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: data,
-  });
 
-  if (response.ok) {
-    const newPost = await response.json();
-    dispatch(getAllPosts());
-    return newPost;
+  try {
+    const response = await fetch(`${api}/posts`, {
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: data,
+    });
+
+    if (response.ok) {
+      const newPost = await response.json();
+      dispatch(getAllPosts());
+      return newPost;
+    } else {
+      throw response;
+    }
+  } catch (err) {
+    const badRequest = await err.json();
+    const errors = badRequest.error;
+    dispatch(handleErrors(errors));
   }
 };
 
