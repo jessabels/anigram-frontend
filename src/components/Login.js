@@ -9,7 +9,7 @@ import { login } from "../store/authentication";
 
 const Login = () => {
   const token = useSelector((state) => state.authentication.token);
-  const errors = useSelector((state) => state.authentication.errors);
+  const errors = useSelector((state) => state.authentication.loginErrors);
   const [email, setEmail] = useState("demo@demo.com");
   const [password, setPassword] = useState("123");
   const dispatch = useDispatch();

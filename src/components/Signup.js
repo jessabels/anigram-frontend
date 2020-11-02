@@ -8,7 +8,7 @@ import { register } from "../store/authentication";
 
 const Signup = () => {
   const token = useSelector((state) => state.authentication.token);
-  const errors = useSelector((state) => state.authentication.errors);
+  const errors = useSelector((state) => state.authentication.signupErrors);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

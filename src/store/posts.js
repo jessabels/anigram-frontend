@@ -6,11 +6,19 @@ const TOKEN_KEY = "anigram/authentication/token";
 const LOAD_POSTS = "anigram/posts";
 const LIKE_POST = "anigram/posts/like";
 const UNLIKE_POST = "anigram/posts/unlike";
+const ERRORS_ARRAY_FORM = "anigram/errors/form";
 
 export const loadPosts = (posts) => ({ type: LOAD_POSTS, posts });
 
 export const like = (likes) => ({ type: LIKE_POST, likes });
 export const unlike = (likes) => ({ type: UNLIKE_POST, likes });
+
+export const handleFormErrors = (errors) => {
+  return {
+    type: ERRORS_ARRAY_FORM,
+    errors,
+  };
+};
 
 export const getAllPosts = () => async (dispatch) => {
   const token = localStorage.getItem(TOKEN_KEY);
@@ -98,7 +106,7 @@ export const createPost = (data) => async (dispatch, getState) => {
   } catch (err) {
     const badRequest = await err.json();
     const errors = badRequest.error;
-    await dispatch(handleErrors(errors));
+    await dispatch(handleFormErrors(errors));
   }
 };
 
@@ -114,6 +122,12 @@ export default function reducer(state = {}, action) {
       return {
         ...state,
         likes: action.likes,
+      };
+    }
+    case ERRORS_ARRAY_FORM: {
+      return {
+        ...state,
+        formErrors: action.errors,
       };
     }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -9,10 +9,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { CircularProgress } from "@material-ui/core";
 
 import { createPost } from "../store/posts";
-import { handleErrors } from "../store/authentication";
+import { handleFormErrors } from "../store/posts";
 
 const PostForm = (props) => {
-  let errors = useSelector((state) => state.authentication.errors);
+  let errors = useSelector((state) => state.posts.formErrors);
 
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
@@ -41,7 +41,7 @@ const PostForm = (props) => {
     }
   };
   const onCancel = () => {
-    dispatch(handleErrors([]));
+    dispatch(handleFormErrors([]));
     props.onClose();
   };
   const updateCaption = (e) => {

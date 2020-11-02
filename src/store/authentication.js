@@ -4,7 +4,8 @@ const TOKEN_KEY = "anigram/authentication/token";
 const SET_TOKEN = "anigram/authentication/SET_TOKEN";
 const REMOVE_TOKEN = "anigram/authentication/REMOVE_TOKEN";
 const SET_CURRENT_USER = "SET_CURRENT_USER";
-const ERRORS_ARRAY = "anigram/erros";
+const ERRORS_ARRAY_LOGIN = "anigram/errors/login";
+const ERRORS_ARRAY_SIGNUP = "anigram/errors/signup";
 
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
@@ -18,7 +19,14 @@ export const setCurrentUser = (userId, username, avatar, likes) => ({
 
 export const handleErrors = (errors) => {
   return {
-    type: ERRORS_ARRAY,
+    type: ERRORS_ARRAY_LOGIN,
+    errors,
+  };
+};
+
+export const handleSignupErrors = (errors) => {
+  return {
+    type: ERRORS_ARRAY_SIGNUP,
     errors,
   };
 };
@@ -110,7 +118,7 @@ export const register = (username, password, email, confirmPassword) => async (
   } catch (err) {
     const badRequest = await err.json();
     const errors = badRequest.error;
-    dispatch(handleErrors(errors));
+    dispatch(handleSignupErrors(errors));
   }
 };
 
@@ -141,10 +149,17 @@ export default function reducer(state = {}, action) {
     case REMOVE_TOKEN: {
       return {};
     }
-    case ERRORS_ARRAY: {
+    case ERRORS_ARRAY_LOGIN: {
       return {
         ...state,
-        errors: action.errors,
+        loginErrors: action.errors,
+      };
+    }
+
+    case ERRORS_ARRAY_SIGNUP: {
+      return {
+        ...state,
+        signupErrors: action.errors,
       };
     }
 
