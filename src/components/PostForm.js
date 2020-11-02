@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -36,12 +36,12 @@ const PostForm = (props) => {
     await dispatch(createPost(data));
     setLoading(false);
     setCaption("");
-    if (!errors || errors.length === 0) {
+    if (image && caption) {
       props.onClose();
     }
   };
   const onCancel = () => {
-    dispatch(handleErrors(null));
+    dispatch(handleErrors([]));
     props.onClose();
   };
   const updateCaption = (e) => {

@@ -10,7 +10,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
-import Skeleton from "@material-ui/lab/Skeleton";
 
 import { getAllPosts } from "../store/posts";
 import "./Posts.css";
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "345px",
     margin: "30px 15px",
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#c8e9eb82",
   },
   media: {
     height: 0,
@@ -33,17 +32,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Posts = (props) => {
-  const { newPostLoading, setNewPostLoading } = props;
-
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
   useEffect(() => {
     dispatch(getAllPosts());
-  }, [dispatch, newPostLoading]);
-
-  // useEffect(() => {
-  //   setNewPostLoading(false);
-  // }, [dispatch, newPostLoading]);
+  }, [dispatch]);
 
   const classes = useStyles();
 
@@ -81,10 +74,6 @@ const Posts = (props) => {
             </Card>
           </Grid>
         ))}
-
-        {/* {newPostLoading ? (
-          <Skeleton variant="rect" width={345} height={345}></Skeleton>
-        ) : null} */}
       </Grid>
     </>
   );

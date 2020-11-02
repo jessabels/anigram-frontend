@@ -16,7 +16,7 @@ import "./Posts.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#c8e9eb",
+    backgroundColor: "#c8e9eb82",
     width: "100%",
     padding: "20px",
   },
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
   },
 }));
 
@@ -36,13 +36,6 @@ const MyPosts = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
-
-  // const myPosts = () => {
-  //   posts.filter((post) => post.userId === localStorage.getItem("userId"););
-  // };
-  // if (posts) {
-  //   myPosts();
-  // }
 
   useEffect(() => {
     dispatch(getMyPosts());

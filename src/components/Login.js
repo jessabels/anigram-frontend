@@ -40,28 +40,36 @@ const Login = () => {
   }
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit} className="loginForm">
-        <label>Email:</label>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-        <label>Password:</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <Button type="submit">Login</Button>
-        <ul>{listOfErrors}</ul>
-        <NavLink to="/signup">Don't have an account? Sign Up Here</NavLink>
-      </form>
+    <div className="container">
+      <h1>Welcome to Anigram!</h1>
+      <span style={{ color: "#d29e55" }}>
+        A place to share your island adventures
+      </span>
+      <div className="form-container">
+        <form onSubmit={handleSubmit} className="loginForm">
+          <label>Email:</label>
+          <input
+            name="email"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={updateEmail}
+          />
+          <label>Password:</label>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={updatePassword}
+          />
+          <Button style={{ backgroundColor: "#a3daac" }} type="submit">
+            Login
+          </Button>
+          <ul>{listOfErrors}</ul>
+          <NavLink to="/signup">Don't have an account? Sign Up</NavLink>
+        </form>
+      </div>
     </div>
   );
 };

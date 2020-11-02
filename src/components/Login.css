@@ -1,23 +1,25 @@
-:root {
-  --primary-color: #9dffb0;
-  --secondary-color: #81f1f7;
-  --tertiary-color: #fff563;
+.container {
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("https://anigram-images.s3.amazonaws.com/Balloon-background.jpg");
+  background-size: contain;
 }
-
 .form-container {
   display: flex;
-  background-color: white;
   justify-content: center;
+  background-color: white;
   padding: 30px 38px;
   width: 100%;
   max-width: 350px;
   margin: 30px;
   border: 1px solid #dddd;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #9cd8dc8f;
+  background-color: #ffffff8f;
 }
 
 input {
@@ -43,4 +45,5 @@ input:focus {
 form a {
   display: block;
   margin-top: 20px;
+  color: black;
 }

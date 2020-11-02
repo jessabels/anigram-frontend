@@ -47,44 +47,48 @@ const Signup = () => {
     return <Redirect to="/" />;
   }
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit} className="loginForm">
-        <label htmlFor="">Username:</label>
-        <input
-          name="username"
-          type="username"
-          placeholder="Username"
-          value={username}
-          onChange={updateUsername}
-        />
-        <label>Email:</label>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-        <label>Password:</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <label>Confirm Password:</label>
-        <input
-          name="confirmPassword"
-          type="password"
-          placeholder="Password"
-          value={confirmPassword}
-          onChange={updateConfirmPassword}
-        />
-        <Button type="submit">Sign Up</Button>
-        <ul>{listOfErrors}</ul>
-        <NavLink to="/login">Already have an account? Login Here</NavLink>
-      </form>
+    <div className="container">
+      <div className="form-container">
+        <form onSubmit={handleSubmit} className="loginForm">
+          <label htmlFor="">Username:</label>
+          <input
+            name="username"
+            type="username"
+            placeholder="Username"
+            value={username}
+            onChange={updateUsername}
+          />
+          <label>Email:</label>
+          <input
+            name="email"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={updateEmail}
+          />
+          <label>Password:</label>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={updatePassword}
+          />
+          <label>Confirm Password:</label>
+          <input
+            name="confirmPassword"
+            type="password"
+            placeholder="Password"
+            value={confirmPassword}
+            onChange={updateConfirmPassword}
+          />
+          <Button type="submit" style={{ backgroundColor: "#a3daac" }}>
+            Sign Up
+          </Button>
+          <ul>{listOfErrors}</ul>
+          <NavLink to="/login">Already have an account? Log in </NavLink>
+        </form>
+      </div>
     </div>
   );
 };

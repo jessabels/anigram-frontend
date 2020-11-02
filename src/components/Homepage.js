@@ -30,7 +30,7 @@ const Homepage = () => {
       <div className="fab-container">
         <Fab
           onClick={handleClickOpen}
-          style={{ backgroundColor: "#fc3" }}
+          style={{ backgroundColor: "#fffcd6" }}
           aria-label="add"
         >
           <AddIcon />

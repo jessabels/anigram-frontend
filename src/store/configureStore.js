@@ -6,8 +6,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducer = combineReducers({ authentication, posts });
 
-const configureStore = () => {
-  return createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+const configureStore = (intial) => {
+  return createStore(reducer, intial, composeEnhancers(applyMiddleware(thunk)));
 };
 
 export default configureStore;

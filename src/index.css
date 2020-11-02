@@ -1,3 +1,9 @@
 * {
   font-family: "Gorditas", cursive;
 }
+
+:root {
+  --primary-color: #a2daac;
+  --secondary-color: #c8e9eb82;
+  --tertiary-color: #fffcd6;
+}

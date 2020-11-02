@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "500px",
     border: "1px solid #dddd",
     textAlign: "center",
+    height: "665px",
   },
 }));
 

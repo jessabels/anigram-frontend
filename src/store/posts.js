@@ -98,7 +98,7 @@ export const createPost = (data) => async (dispatch, getState) => {
   } catch (err) {
     const badRequest = await err.json();
     const errors = badRequest.error;
-    dispatch(handleErrors(errors));
+    await dispatch(handleErrors(errors));
   }
 };
 
