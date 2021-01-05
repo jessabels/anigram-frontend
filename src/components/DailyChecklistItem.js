@@ -33,7 +33,6 @@ const DailyChecklistItem = (props) => {
 
   const load = () => {
     if (cookieData) {
-      console.log("cookie data", cookieData);
       const newChecklist = [...items];
       cookieData.forEach((current) => {
         if (newChecklist[current]) {

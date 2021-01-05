@@ -110,6 +110,29 @@ export const createPost = (data) => async (dispatch, getState) => {
   }
 };
 
+export const deletePost = (postId) => async (dispatch, getState) => {
+  const {
+    authentication: { token },
+  } = getState();
+
+  try {
+    const response = await fetch(`${api}/posts/${postId}`, {
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      dispatch(getAllPosts());
+    } else {
+      throw response;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export default function reducer(state = {}, action) {
   switch (action.type) {
     case LOAD_POSTS: {
