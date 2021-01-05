@@ -2,6 +2,9 @@
   font-family: "Gorditas", cursive;
 }
 
+body {
+  margin: 0;
+}
 :root {
   --primary-color: #a2daac;
   --secondary-color: #c8e9eb82;

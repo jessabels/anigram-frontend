@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#c8e9eb82",
     width: "100%",
     padding: "20px",
+    [theme.breakpoints.down("sm")]: {
+      width: "auto",
+    },
   },
 
   card: {

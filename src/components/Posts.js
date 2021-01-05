@@ -48,7 +48,7 @@ const Posts = (props) => {
     <>
       <Grid container>
         {posts.map((post) => (
-          <Grid key={post.postId} item xs={6} sm={3}>
+          <Grid key={post.postId} item xs={12} sm={3}>
             <Card className={classes.root}>
               <CardHeader
                 avatar={

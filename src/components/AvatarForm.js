@@ -23,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(20),
     height: theme.spacing(20),
   },
+
+  avatar: {
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      justifyContent: "center",
+    },
+  },
 }));
 
 const AvatarForm = (props) => {
@@ -57,7 +64,7 @@ const AvatarForm = (props) => {
         <DialogTitle id="form-dialog-title">Choose Your Avatar</DialogTitle>
         <DialogContent>
           <Grid container>
-            <Grid item xs={6} sm={4}>
+            <Grid className={classes.avatar} item xs={12} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/bear.PNG"
                 className={
@@ -69,7 +76,7 @@ const AvatarForm = (props) => {
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
-            <Grid item xs={6} sm={4}>
+            <Grid className={classes.avatar} item xs={12} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/cat.PNG"
                 className={
@@ -81,7 +88,7 @@ const AvatarForm = (props) => {
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
-            <Grid item xs={6} sm={4}>
+            <Grid className={classes.avatar} item xs={12} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/fox.PNG"
                 className={
@@ -93,7 +100,7 @@ const AvatarForm = (props) => {
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
-            <Grid item xs={6} sm={4}>
+            <Grid className={classes.avatar} item xs={12} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/frog.PNG"
                 className={
@@ -105,7 +112,7 @@ const AvatarForm = (props) => {
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
-            <Grid item xs={6} sm={4}>
+            <Grid className={classes.avatar} item xs={12} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/monkey.PNG"
                 className={
@@ -117,7 +124,7 @@ const AvatarForm = (props) => {
                 onClick={(e) => selectAvatar(e.target.currentSrc)}
               />
             </Grid>
-            <Grid item xs={6} sm={4}>
+            <Grid className={classes.avatar} item xs={12} sm={4}>
               <Avatar
                 src="https://anigram-images.s3.amazonaws.com/avatars/pug.PNG"
                 className={

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./DailyChecklistItem.css";
+import "./DailyChecklist.css";
 
 import Checkbox from "@material-ui/core/Checkbox";
 
@@ -33,9 +33,15 @@ const DailyChecklistItem = (props) => {
 
   const load = () => {
     if (cookieData) {
+      console.log("cookie data", cookieData);
       const newChecklist = [...items];
       cookieData.forEach((current) => {
-        newChecklist[current].isCompleted = !newChecklist[current].isCompleted;
+        if (newChecklist[current]) {
+          newChecklist[current].isCompleted = !newChecklist[current]
+            .isCompleted;
+        } else {
+          return;
+        }
         setItems(newChecklist);
       });
     }
