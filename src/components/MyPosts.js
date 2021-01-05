@@ -49,9 +49,11 @@ const MyPosts = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
   const [open, setOpen] = React.useState(false);
+  const [selectedPost, setSelectedPost] = React.useState(null);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (postId) => {
     setOpen(true);
+    setSelectedPost(postId);
   };
 
   const handleClose = () => {
@@ -59,6 +61,7 @@ const MyPosts = () => {
   };
 
   const handleDeletePost = (postId) => {
+    console.log("post id", postId);
     dispatch(deletePost(postId));
     handleClose();
   };
@@ -98,7 +101,7 @@ const MyPosts = () => {
                   }
                   subheader={post.createdAt}
                   action={
-                    <IconButton onClick={handleClickOpen}>
+                    <IconButton onClick={() => handleClickOpen(post.postId)}>
                       <DeleteIcon />
                     </IconButton>
                   }
@@ -122,32 +125,32 @@ const MyPosts = () => {
                 </div>
               </Card>
             </Grid>
-            <Dialog
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  Are you sure you want to delete this post?
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button
-                  onClick={() => handleDeletePost(post.postId)}
-                  color="primary"
-                >
-                  Yes
-                </Button>
-                <Button onClick={handleClose} color="primary" autoFocus>
-                  No
-                </Button>
-              </DialogActions>
-            </Dialog>
           </React.Fragment>
         ))}
       </Grid>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this post?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => handleDeletePost(selectedPost)}
+            color="primary"
+          >
+            Yes
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
