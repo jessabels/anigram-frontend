@@ -124,7 +124,7 @@ export const deletePost = (postId) => async (dispatch, getState) => {
     });
 
     if (response.ok) {
-      dispatch(getAllPosts());
+      dispatch(getMyPosts());
     } else {
       throw response;
     }
