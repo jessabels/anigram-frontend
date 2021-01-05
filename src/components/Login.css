@@ -10,6 +10,11 @@
   background-image: url("https://anigram-images.s3.amazonaws.com/Balloon-background.jpg");
   background-size: contain;
 }
+
+.container > h1,
+.container > span {
+  text-align: center;
+}
 .form-container {
   display: flex;
   justify-content: center;

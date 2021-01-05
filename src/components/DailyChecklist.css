@@ -1,0 +1,15 @@
+.list-item {
+  display: flex;
+  align-items: center;
+}
+
+.profile-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .profile-wrapper {
+    display: block;
+  }
+}
